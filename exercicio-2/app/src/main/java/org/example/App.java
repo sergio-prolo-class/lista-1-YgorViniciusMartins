@@ -3,7 +3,7 @@
  */
 package org.example;
 
-public class Main {
+public class App {
     static String faixas(String cor) {
         switch (cor) {
             case "preto":
