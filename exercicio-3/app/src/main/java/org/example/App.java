@@ -4,11 +4,69 @@
 package org.example;
 import java.util.Arrays; //Biblioteca para facilitar a inicialização da matriz utilizando o Arrays.fill()
 
+import java.util.Arrays; //Biblioteca para facilitar a inicialização da matriz utilizando o Arrays.fill()
+import java.util.Random;
+
 public class Main{
-    public static void main(String[] args) {
-        String[][] tabuleiro = new String[10][10];
+    static void inicializaTabuleiro(String[][] tabuleiro){
         for (int i = 0; i < 10; i++) {
             Arrays.fill(tabuleiro[i], "."); //Para cada linha do tabuleiro, preecha cada coluna com "."
         }
+        //return tabuleiro;
+    }
+
+    static int obtemTamanho(char aparencia){
+        switch (aparencia){
+            case 'N':
+                return 2;
+            case 'S':
+                return 3;
+            case 'C':
+                return 3;
+            case 'E':
+                return 4;
+            case 'P':
+                return 5;
+            default:
+                return 0;
+        }
+    }
+
+    static void criadorNavios(String[][] tabuleiro, int tamanho, char aparencia){
+        Random r = new Random();
+        while (true) {
+            int linha_sort = r.nextInt(10); //Gera numeros de 0-9
+            int coluna_sort = r.nextInt(10);
+            int direcao_sort = r.nextInt(4);
+            if(podeSerInserido(linha_sort, coluna_sort, direcao_sort)){
+                break;
+            }
+        }
+
+    }
+
+    static boolean podeSerInserido (int linha_sort, int coluna_sort, int direcao_sort){
+        return true;
+    }
+
+    static void exibeTabuleiro(String[][] tabuleiro){
+        for (int i = 0; i < 10; i++) {
+            System.out.println();
+            for (int j = 0; j < 10; j++) {
+                System.out.print(tabuleiro[i][j] + " ");
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        String[][] tabuleiro = new String[10][10];
+        inicializaTabuleiro(tabuleiro);
+        char[] aparencias = {'N', 'S', 'C', 'E', 'P'};
+        for (int i = 0; i < 5; i++) {
+            int tamanho = obtemTamanho(aparencias[i]);
+            criadorNavios(tabuleiro, tamanho, aparencias[i]);
+        }
+        exibeTabuleiro(tabuleiro);
+
     }
 }
