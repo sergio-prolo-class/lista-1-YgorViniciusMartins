@@ -3,20 +3,17 @@
  */
 package org.example;
 import java.util.Arrays; //Biblioteca para facilitar a inicialização da matriz utilizando o Arrays.fill()
-
-import java.util.Arrays; //Biblioteca para facilitar a inicialização da matriz utilizando o Arrays.fill()
 import java.util.Random;
 
-public class Main{
-    static void inicializaTabuleiro(String[][] tabuleiro){
+public class App{
+    static void inicializaTabuleiro(char[][] tabuleiro){
         for (int i = 0; i < 10; i++) {
-            Arrays.fill(tabuleiro[i], "."); //Para cada linha do tabuleiro, preecha cada coluna com "."
+            Arrays.fill(tabuleiro[i], '.'); //Para cada linha do tabuleiro, preecha cada coluna com "."
         }
-        //return tabuleiro;
     }
 
     static int obtemTamanho(char aparencia){
-        switch (aparencia){
+        switch (aparencia){ //Com base na aparencia do barco, retorna o seu tamanho com base na tabela disponibilizada no exercício
             case 'N':
                 return 2;
             case 'S':
@@ -32,37 +29,108 @@ public class Main{
         }
     }
 
-    static void criadorNavios(String[][] tabuleiro, int tamanho, char aparencia){
+    static void criadorNavios(char[][] tabuleiro, int tamanho, char aparencia){
         Random r = new Random();
         while (true) {
-            int linha_sort = r.nextInt(10); //Gera numeros de 0-9
-            int coluna_sort = r.nextInt(10);
-            int direcao_sort = r.nextInt(4);
-            if(podeSerInserido(linha_sort, coluna_sort, direcao_sort)){
+            int linha_sort = r.nextInt(10); //Gera numeros de 0-9 para determinar a linha do ponto inicial de inserção do barco
+            int coluna_sort = r.nextInt(10); //Gera numeros de 0-9 para determinar a coluna do ponto inicial de inserção do barco
+            int direcao_sort = r.nextInt(4); //0 = baixo, 1 = cima, 2 = esquerda, 3 = direita
+            if(podeSerInserido(linha_sort, coluna_sort, direcao_sort, tamanho, tabuleiro)){
+                criaNavios(linha_sort, coluna_sort, direcao_sort, tamanho, tabuleiro, aparencia);
                 break;
             }
         }
-
     }
 
-    static boolean podeSerInserido (int linha_sort, int coluna_sort, int direcao_sort){
-        return true;
+    static boolean podeSerInserido (int linha_sort, int coluna_sort, int direcao_sort, int tamanho, char[][]tabuleiro){
+        switch (direcao_sort){
+            case 0:
+                if(linha_sort + (tamanho - 1) < 10){ //Este if verifica se o barco não ultrapassa o tamanho do tabuleiro
+                    for (int i = 0; i < tamanho; i++) {
+                        if(tabuleiro[linha_sort + i][coluna_sort] != '.'){ // Ester for junto a este if verifica se há algum barco no caminho do barco a ser inserido
+                            return false;
+                        }
+                    }
+                    return true;
+                }
+                break;
+            case 1:
+                if(linha_sort - (tamanho - 1) >= 0){
+                    for (int i = 0; i < tamanho; i++) {
+                        if(tabuleiro[linha_sort - i][coluna_sort] != '.'){
+                            return false;
+                        }
+                    }
+                    return true;
+                }
+                break;
+            case 2:
+                if(coluna_sort - (tamanho - 1) >= 0){
+                    for (int i = 0; i < tamanho; i++) {
+                        if(tabuleiro[linha_sort][coluna_sort - i] != '.'){
+                            return false;
+                        }
+                    }
+                    return true;
+                }
+                break;
+            case 3:
+                if(coluna_sort + (tamanho - 1) < 10){
+                    for (int i = 0; i < tamanho; i++) {
+                        if(tabuleiro[linha_sort][coluna_sort + i] != '.'){
+                            return false;
+                        }
+                    }
+                    return true;
+                }
+                break;
+        }
+        return false;
     }
 
-    static void exibeTabuleiro(String[][] tabuleiro){
+    static void exibeTabuleiro(char[][] tabuleiro){
         for (int i = 0; i < 10; i++) {
             System.out.println();
             for (int j = 0; j < 10; j++) {
-                System.out.print(tabuleiro[i][j] + " ");
+                if(j != 9) {
+                    System.out.print(tabuleiro[i][j] + " ");
+                } else {
+                    System.out.print(tabuleiro[i][j]);
+                }
             }
+        }
+    }
+
+    static void criaNavios (int linha_sort, int coluna_sort, int direcao_sort, int tamanho, char[][] tabuleiro, char aparencia){
+        switch (direcao_sort){ //Determina se o navio vai crescer do ponto inicial para a esqueda, direita, cima ou baixo
+            case 0:
+                for (int i = 0; i < tamanho; i++) {
+                    tabuleiro[linha_sort + i][coluna_sort] = aparencia; //Faz o crescimento do navio
+                }
+                break;
+            case 1:
+                for (int i = 0; i < tamanho; i++) {
+                    tabuleiro[linha_sort - i][coluna_sort] = aparencia;
+                }
+                break;
+            case 2:
+                for (int i = 0; i < tamanho; i++) {
+                    tabuleiro[linha_sort][coluna_sort - i] = aparencia;
+                }
+                break;
+            case 3:
+                for (int i = 0; i < tamanho; i++) {
+                    tabuleiro[linha_sort][coluna_sort + i] = aparencia;
+                }
+                break;
         }
     }
 
     public static void main(String[] args) {
-        String[][] tabuleiro = new String[10][10];
+        char[][] tabuleiro = new char[10][10];
         inicializaTabuleiro(tabuleiro);
-        char[] aparencias = {'N', 'S', 'C', 'E', 'P'};
-        for (int i = 0; i < 5; i++) {
+        char[] aparencias = {'N', 'S', 'C', 'E', 'P'}; //Todos os navios possíveis
+        for (int i = 0; i < 5; i++) { //Loop para cada tipo de navio
             int tamanho = obtemTamanho(aparencias[i]);
             criadorNavios(tabuleiro, tamanho, aparencias[i]);
         }
