@@ -1,21 +1,25 @@
-public class Main {
+public class App {
 
-    //Função responsável por criar o triangulo com a base informada e imprimir este no terminal
+    //Função responsável por criar o triangulo com a base informada e imprimi este no terminal
     static void triangulo (int base, String espaco, String asterisco){
         for (int i = 1; i <= base; i++) {
             System.out.println(espaco.repeat(base - i) + asterisco.repeat(i));
         }
     }
 
+    //Função responsável por criar o losango com a base informada e imprimi este no terminal
     static void losango(int dimensao, String espaco, String asterisco){
+        //Parte superior do losango
         int qtd_espacos = dimensao/2;
         for (int i = 1; i != dimensao; i += 2) {
             System.out.println(espaco.repeat(qtd_espacos) + asterisco.repeat(i));
             qtd_espacos--;
         }
 
+        //Meio do losango
         System.out.println(asterisco.repeat(dimensao));
 
+        //Parte inferior do losango
         qtd_espacos = 1;
         for (int j = dimensao - 2; j >= 1; j -= 2) {
             System.out.println(espaco.repeat(qtd_espacos) + asterisco.repeat(j));
@@ -23,16 +27,27 @@ public class Main {
         }
     }
 
+    //Função responsável por criar o retangulo com a base e altura informada e imprimi este no terminal
+    static void retangulo(int largura, int altura, String espaco, String asterisco){
+        System.out.println(asterisco.repeat(largura)); //Parte superior do retangulo
+        for(int i = 0; i < altura - 2; i++){
+            System.out.println(asterisco + espaco.repeat(largura - 2) + asterisco);
+        }
+        System.out.println(asterisco.repeat(largura)); //Parte infeior retangulo
+    }
+
+
+
     public static void main(String[] args) {
 
         //Inicializando variávies auxiliares para desenhar as formas
         String espaco = " ";
         String asterisco = "*";
+        int base = Integer.parseInt(args[1]);
 
         //O código main opera aqui como driver, encaminhando para a função desejada com base no que foi solicitado pelo usuario
         switch (args[0]) {
             case "triangulo":
-                int base = Integer.parseInt(args[1]);
                 triangulo(base, espaco, asterisco);
                 break;
             case "losango":
@@ -45,7 +60,8 @@ public class Main {
                 losango(dimensao, espaco, asterisco);
                 break;
             case "retangulo":
-                System.out.println("Teste2");
+                int altura = Integer.parseInt(args[2]);
+                retangulo(base, altura, espaco, asterisco);
                 break;
         }
     }
