@@ -1,3 +1,5 @@
+package org.example;
+
 public class App {
 
     //Função responsável por criar o triangulo com a base informada e imprimi este no terminal
