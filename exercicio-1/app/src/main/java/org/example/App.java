@@ -41,11 +41,18 @@ public class App {
 
 
     public static void main(String[] args) {
-
+        if(args.length < 2){
+            System.out.println("O programa funciona por argumentos de linha de comando, onde o primeiro argumento deve ser a forma e o segundo a dimensão, exemplo: gradle run --args \"triangulo 5\"");
+            System.exit(0);
+        }
         //Inicializando variávies auxiliares para desenhar as formas
         String espaco = " ";
         String asterisco = "*";
         int base = Integer.parseInt(args[1]);
+        if(base < 0){
+            System.out.println("Dimensão inválida, dimensão deve ser maior ou igual a zero");
+            System.exit(0);
+        }
 
         //O código main opera aqui como driver, encaminhando para a função desejada com base no que foi solicitado pelo usuario
         switch (args[0]) {
@@ -62,9 +69,16 @@ public class App {
                 losango(dimensao, espaco, asterisco);
                 break;
             case "retangulo":
+                if(args.length < 3){
+                    System.out.println("Para a criação de retangulos se exige uma dimensão de largura e altura, exemplo: gradle run --args \"retangulo 8 5\"");
+                    System.exit(0);
+                }
                 int altura = Integer.parseInt(args[2]);
                 retangulo(base, altura, espaco, asterisco);
                 break;
+            default:
+                System.out.println("Forma inválida, as formas válidas são: triangulo; retangulo; losango");
+                System.exit(0);
         }
     }
 }
