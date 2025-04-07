@@ -90,7 +90,6 @@ public class App{
 
     static void exibeTabuleiro(char[][] tabuleiro){
         for (int i = 0; i < 10; i++) {
-            System.out.println();
             for (int j = 0; j < 10; j++) {
                 if(j != 9) {
                     System.out.print(tabuleiro[i][j] + " ");
@@ -98,6 +97,7 @@ public class App{
                     System.out.print(tabuleiro[i][j]);
                 }
             }
+            System.out.println();
         }
     }
 
