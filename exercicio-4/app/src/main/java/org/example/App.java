@@ -10,14 +10,12 @@ public class App {
     static void navioVerticalHorizontal (String[][] tabuleiro, int linha, int coluna, int tamanho_navio, String aparencia){
         //Verificando se esta na horizontal
         if(coluna + tamanho_navio <= 10 && Objects.equals(aparencia, tabuleiro[linha][coluna + 1])) {
-            System.out.println("A");
             for (int i = 0; i < tamanho_navio; i++) {
-                System.out.println(tabuleiro[linha][coluna + i]);
                 if (tamanhoNavio(tabuleiro[linha][coluna + i]) != 0 && Objects.equals(aparencia, tabuleiro[linha][coluna + i])) {
                     tabuleiro[linha][coluna + i] = ".";
                 } else {
                     System.out.println("Tabuleiro inválido, navio não está na vertical ou horizontal");
-                    System.exit(1);
+                    System.exit(0);
                 }
                 if ((i + 1) >= tamanho_navio) {
                     return;
@@ -28,12 +26,11 @@ public class App {
         //Verificando se esta na vertical
         if(linha + tamanho_navio <= 10 && Objects.equals(aparencia, tabuleiro[linha + 1][coluna])) {
             for (int i = 0; i < tamanho_navio; i++) {
-                System.out.println(tabuleiro[linha + 1][coluna]);
                 if (tamanhoNavio(tabuleiro[linha + i][coluna]) != 0 && Objects.equals(aparencia, tabuleiro[linha + i][coluna])) {
                     tabuleiro[linha + i][coluna] = ".";
                 } else {
                     System.out.println("Tabuleiro inválido, navio não está na vertical ou horizontal");
-                    System.exit(1);
+                    System.exit(0);
                 }
                 if ((i + 1) >= tamanho_navio) {
                     return;
@@ -41,7 +38,7 @@ public class App {
             }
         }
         System.out.println("Tabuleiro inválido, navio não está na vertical ou horizontal");
-        System.exit(1);
+        System.exit(0);
     }
 
     //Procura um caractere válido de navio no tabuleiro
@@ -61,7 +58,7 @@ public class App {
         for (int i = 0; i < cada_navio.length; i++) {
             if(!cada_navio[i]){
                 System.out.println("Tabuleior inválido, não inclui um navio de cada tipo");
-                System.exit(1);
+                System.exit(0);
             }
         }
     }
@@ -74,15 +71,15 @@ public class App {
                 //Se o navio for multiplo do tamanho mínimo, retornamos que há navios múltiplos
                 if(comprimento_aparecidos[i] % tamanhoNavio(navios[i]) == 0){
                     System.out.println("Tabuleiro inválido, inclui múltiplos navios do mesmo tipo");
-                    System.exit(1);
+                    System.exit(0);
                     //Se o comprimento mínimo não for atingido, tratamos como não inclui um navio de cada tipo
                 } else if (comprimento_aparecidos[i] < tamanhoNavio(navios[i])){
                     System.out.println("Tabuleiro inválido, não inclui um navio de cada tipo");
-                    System.exit(1);
+                    System.exit(0);
                     //Agora caso contrário, tratamos que existe um navio desconhecido
                 } else {
                     System.out.println("Tabuleiro inválido, inclui navios desconhecidos");
-                    System.exit(1);
+                    System.exit(0);
                 }
             }
         }
@@ -147,7 +144,7 @@ public class App {
         for (int i = 0; i < linha.length; i++) {
             if(!verificaSeHaElementosValidos(linha[i])){
                 System.out.println("Tabuliero inválido, inclui navios desconhecidos");
-                System.exit(1);
+                System.exit(0);
             }
         }
     }
@@ -155,7 +152,7 @@ public class App {
     //Se linha do tabuleiro tiver uma quantidade diferente de 10 linhas, ou, se quatidade de linhas for maior que 10
     static void temTamanho10x10 (){
         System.out.println("Tabuliero inválido, não tem a dimensão correta de 10×10 casas ");
-        System.exit(1);
+        System.exit(0);
     }
 
     static void leArquivo(Scanner arquivo, String[][] tabuleiro){
