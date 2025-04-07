@@ -27,7 +27,9 @@ public class App {
             case "branco":
                 return "9";
             default:
-                return "erro";
+                System.out.println("É necessário inserir as cores válidas: preto, marrom, vermelho, laranja, amarelo, verde, azul, violeta, cinza ou branco");
+                System.exit(0);
+                return null;
         }
     }
 
@@ -58,6 +60,8 @@ public class App {
             case "prata":
                 return 0.01;
             default:
+                System.out.println("É necessário inserir as cores válidas: preto, marrom, vermelho, laranja, amarelo, verde, azul, violeta, cinza, branco, ouro ou prata");
+                System.exit(0);
                 return 0;
         }
     }
@@ -83,7 +87,9 @@ public class App {
             case "prata":
                 return "10%";
             default:
-                return "erro";
+                System.out.println("É necessário inserir as cores válidas: preto, marrom, vermelho, verde, azul, violeta, cinza, ouro ou prata");
+                System.exit(0);
+                return null;
         }
     }
 
@@ -100,6 +106,10 @@ public class App {
     }
 
     public static void main(String[] args) {
+        if(args.length < 3){
+            System.out.println("É necessário de ao menos três argumentos, exemplo: gradle run --args \"amarelo branco verde\"");
+            System.exit(0);
+        }
         String digito_faixa1 = faixas(args[0]);
         String digito_faixa2 = faixas(args[1]);
         digito_faixa1 += digito_faixa2;
